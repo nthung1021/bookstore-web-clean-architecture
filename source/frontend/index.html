@@ -52,35 +52,36 @@
         }
     });
 
-    async function loadBooks() {
+    async function loadProducts() {
         try {
-        const res = await fetch(`${window.env.API_URL}/api/book/`);
-        const books = await res.json();
+        const res = await fetch(`${window.env.API_URL}/api/product/`);
+        const products = await res.json();
 
         const grid = document.getElementById('bookGrid');
-        grid.innerHTML = books.map(book => `
+        grid.innerHTML = products.map(product => `
             <div class="bg-white rounded shadow-md p-4 flex flex-col">
-                <a href="/detail?id=${book.id}">
-                    <img src="${book.image_url || 'https://via.placeholder.com/150'}" alt="${book.name}" class="h-48 w-full object-cover rounded mb-4">
+                <a href="/detail?id=${product.id}">
+                    <img src="${product.image || 'https://via.placeholder.com/150'}" alt="${product.name}" class="h-48 w-full object-cover rounded mb-4">
                 </a>
-                <a href="/detail?id=${book.id}" class="hover:underline">
-                    <h2 class="text-lg font-semibold mb-2">${book.name}</h2>
+                <a href="/detail?id=${product.id}" class="hover:underline">
+                    <h2 class="text-lg font-semibold mb-2">${product.name}</h2>
                 </a>
-                <p class="text-green-700 font-bold text-md">$${Number(book.price).toFixed(2)}</p>
+                <p class="text-black text-lg">Stock: ${Number(product.stock)}</p>
+                <p class="text-green-700 font-bold text-md">$${Number(product.price)}</p>
                 <button 
-                    onclick="orderNow('${book.id}', ${book.price})"
+                    onclick="orderNow('${product.id}', ${product.price})"
                     class="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500">Order
                 </button>
                 <button 
-                    onclick="addToCart('${book.id}')"
+                    onclick="addToCart('${product.id}')"
                     class="mt-2 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400">Add to Cart
                 </button>
             </div>
         `).join('');
         } catch (error) {
-            console.error('Failed to load books:', error);
+            console.error('Failed to load products:', error);
         }
     }
 
-    loadBooks();
+    loadProducts();
 </script>
