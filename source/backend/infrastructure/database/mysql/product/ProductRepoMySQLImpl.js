@@ -1,5 +1,5 @@
-const ProductRepository = require('../../domain/repositories/ProductRepository');
-const Product = require('../../domain/entities/Product');
+const ProductRepository = require('../../../../domain/repositories/ProductRepository');
+const Product = require('../../../../domain/entities/Product');
 const ProductModelMySQL = require('./ProductModelMySQL');
 
 class ProductRepoMySQLImpl extends ProductRepository {

@@ -33,8 +33,8 @@
 
     <!-- Main Content -->
     <main class="max-w-4xl mx-auto mt-10 bg-white rounded shadow p-6">
-        <div id="bookDetail" class="flex flex-col md:flex-row gap-6 items-center md:items-start">
-        <!-- Book data will be inserted here -->
+        <div id="productDetail" class="flex flex-col md:flex-row gap-6 items-center md:items-start">
+        <!-- Product data will be inserted here -->
         </div>
     </main>
 </body>
@@ -56,7 +56,7 @@
         return urlParams.get(param);
     }
 
-    async function loadBookDetail() {
+    async function loadProductDetail() {
         const productId = getQueryParam('id');
         if (!productId) {
             document.getElementById('productDetail').innerHTML = '<p class="text-red-600">Product not found.</p>';
@@ -68,10 +68,10 @@
             const product = await res.json();
 
             if (!res.ok || !product.id) {
-                throw new Error("Book not found");
+                throw new Error("Product not found");
             }
 
-            document.getElementById('bookDetail').innerHTML = `
+            document.getElementById('productDetail').innerHTML = `
                 <img src="${product.image || 'https://via.placeholder.com/200'}" alt="${product.name}" class="w-64 h-auto rounded shadow" />
                 <div class="flex flex-col gap-2">
                     <h1 class="text-3xl font-bold">${product.name}</h1>
@@ -88,9 +88,10 @@
                 </div>
             `;
         } catch (err) {
-            document.getElementById('bookDetail').innerHTML = `<p class="text-red-600">Error loading product detail.</p>`;
+            console.error('Failed to load product detail:', err);
+            document.getElementById('productDetail').innerHTML = `<p class="text-red-600">Error loading product detail.</p>`;
         }
     }
 
-    loadBookDetail();
+    loadProductDetail();
 </script>

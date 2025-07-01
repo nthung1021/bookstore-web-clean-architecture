@@ -1,0 +1,22 @@
+const UserRepository = require('../../../../domain/repositories/UserRepository');
+const User = require('../../../../domain/entities/User');
+const UserModelMySQL = require('./UserModelMySQL');
+
+class UserRepoMySQLImpl extends UserRepository {
+    async register(name, password) {
+        const record = await UserModelMySQL.create({ name, password });
+        return record ? new User(record.dataValues) : null;
+    }
+
+    async login(name, password) {
+        const record = await UserModelMySQL.findOne({ where: { name, password } });
+        return record ? new User(record.dataValues) : null;
+    }
+
+    async getUserByName(name) {
+        const record = await UserModelMySQL.findOne({ where: { name } });
+        return record ? new User(record.dataValues) : null;
+    }
+}
+
+module.exports = UserRepoMySQLImpl;

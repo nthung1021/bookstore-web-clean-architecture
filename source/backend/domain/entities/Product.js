@@ -8,4 +8,4 @@ class Product {
         this.image = image;
     }
 }
-module.exports = Book;
+module.exports = Product;

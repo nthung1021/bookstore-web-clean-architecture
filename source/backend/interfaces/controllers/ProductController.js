@@ -1,9 +1,6 @@
 class ProductController {
-    constructor(listProductsUseCase) {
+    constructor(listProductsUseCase, getProductDetailUseCase) {
         this.listProductsUseCase = listProductsUseCase;
-    }
-
-    constructor(getProductDetailUseCase) {
         this.getProductDetailUseCase = getProductDetailUseCase;
     }
 
@@ -11,8 +8,9 @@ class ProductController {
         try {
             const products = await this.listProductsUseCase.execute();
             res.json(products);
-        } catch (e) {
-            res.status(500).json({ error: e.message });
+        } catch (err) {
+            console.error(err);
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 
@@ -25,8 +23,9 @@ class ProductController {
             res.json(product);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ message: 'Internal server error' });
+            res.status(500).json({ error: 'Internal server error' });
         }
     }
 }
+
 module.exports = ProductController;

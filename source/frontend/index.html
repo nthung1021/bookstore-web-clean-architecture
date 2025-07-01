@@ -34,7 +34,7 @@
     <!-- Main Content -->
     <main class="p-6">
         <h1 class="text-3xl font-bold mb-6 text-center">Available Books</h1>
-        <div id="bookGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <!-- Book cards will be inserted here -->
         </div>
     </main>
@@ -57,7 +57,7 @@
         const res = await fetch(`${window.env.API_URL}/api/product/`);
         const products = await res.json();
 
-        const grid = document.getElementById('bookGrid');
+        const grid = document.getElementById('productGrid');
         grid.innerHTML = products.map(product => `
             <div class="bg-white rounded shadow-md p-4 flex flex-col">
                 <a href="/detail?id=${product.id}">
@@ -78,8 +78,8 @@
                 </button>
             </div>
         `).join('');
-        } catch (error) {
-            console.error('Failed to load products:', error);
+        } catch (err) {
+            console.error('Failed to load products:', err);
         }
     }
 
