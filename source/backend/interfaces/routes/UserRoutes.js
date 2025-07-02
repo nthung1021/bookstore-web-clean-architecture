@@ -8,14 +8,14 @@ const UserController = require('../controllers/UserController');
 const dbType = process.env.DB_TYPE;
 const userRepository = createUserRepository(dbType);
 
+const getUser = new GetUser(userRepository);
 const register = new Register(userRepository);
 const login = new Login(userRepository);
-const getUser = new GetUser(userRepository);
 
 const userController = new UserController(register, login, getUser);
 
 const router = express.Router();
-router.get('/register', UserController.register(userController));
-router.get('/login', UserController.login(userController));
+router.post('/register', userController.register.bind(userController));
+router.post('/login', userController.login.bind(userController));
 
 module.exports = router;

@@ -10,7 +10,7 @@ function createProductRepository(dbType) {
 function createUserRepository(dbType) {
     switch (dbType) {
         case 'mysql':
-            return new (require('../database/mysql/user/UserRepoMySQLImpl'));
+            return new (require('../database/mysql/user/UserRepoMySQLImpl'))();
         default:
             throw new Error(`Unsupported DB type: ${dbType}`);
     }

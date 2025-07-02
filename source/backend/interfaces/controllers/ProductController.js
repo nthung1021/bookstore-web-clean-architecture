@@ -7,10 +7,10 @@ class ProductController {
     async getAllProducts(req, res) {
         try {
             const products = await this.listProductsUseCase.execute();
-            res.json(products);
+            return res.json(products);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            return res.status(500).json({ error: 'Internal server error' });
         }
     }
 
@@ -20,10 +20,10 @@ class ProductController {
         try {
             const product = await this.getProductDetailUseCase.execute(id);
             if (!product) return res.status(404).json({ message: 'Product not found' });
-            res.json(product);
+            return res.json(product);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            return res.status(500).json({ error: 'Internal server error' });
         }
     }
 }

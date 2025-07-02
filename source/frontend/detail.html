@@ -24,10 +24,7 @@
                 class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 ml-2"
                 href="/order">Order
             </a>
-            <button 
-                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 ml-2"
-                id="accountButton">Account
-            </button>
+            <span id="authArea"></span>
         </div>
     </header>
 
@@ -42,14 +39,32 @@
 
 <script src="env.js"></script>
 <script>
-    document.getElementById("accountButton").addEventListener("click", () => {
-        const userId = localStorage.getItem("userId");
+    function renderAuthArea () {
+        const authArea   = document.getElementById('authArea');
+        const userId     = localStorage.getItem('userId');
+        authArea.innerHTML = '';
+
         if (userId) {
-            window.location.href = "/user";
+            authArea.insertAdjacentHTML('beforeend', `
+            <button 
+                id="logoutBtn"
+                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-500 ml-2">Logout
+            </button>
+            `);
+
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('userId');
+                location.href = '/login';
+            });
+
         } else {
-            window.location.href = "/login";
+            authArea.insertAdjacentHTML('beforeend', `
+            <a href="/login"
+                class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-500 ml-2">Login
+            </a>
+            `);
         }
-    });
+    }
 
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -76,6 +91,7 @@
                 <div class="flex flex-col gap-2">
                     <h1 class="text-3xl font-bold">${product.name}</h1>
                     <p class="text-lg text-black">Stock: ${Number(product.stock)}</p>
+                    <p class="text-green-700 font-bold text-xl">$${Number(product.price)}</p>
                     <p class="text-md text-gray-600">${product.description}</p>
                     <button 
                         onclick="orderNow('${product.id}', ${product.price})"
@@ -93,5 +109,6 @@
         }
     }
 
+    document.addEventListener('DOMContentLoaded', renderAuthArea);
     loadProductDetail();
 </script>

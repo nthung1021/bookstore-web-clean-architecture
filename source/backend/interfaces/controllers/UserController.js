@@ -11,11 +11,11 @@ class UserController {
         const { name, password, confirmPassword } = req.body;
 
         if (!name || !password || !confirmPassword) {
-            res.status(400).json({ error: 'Name, password and confirm password are required' });
+            return res.status(400).json({ error: 'Name, password and confirm password are required' });
         }
 
         if (password !== confirmPassword) {
-            res.status(400).json({ error: 'Passwords do not match' });
+            return res.status(400).json({ error: 'Passwords do not match' });
         }
 
         try {
@@ -23,18 +23,18 @@ class UserController {
 
             const existingUser = await this.getUserUseCase.execute(name);
             if (existingUser) {
-                res.status(400).json({ error: 'User already exists' });
+                return res.status(400).json({ error: 'User already exists' });
             }
             else {
                 const user = await this.registerUseCase.execute(name, hashedPassword);
                 if (!user) {
-                    res.status(500).json({ error: 'Failed to register user' });
+                    return res.status(500).json({ error: 'Failed to register user' });
                 }
-                res.json(user);
+                return res.json(user);
             }
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });
+            return res.status(500).json({ error: 'Internal server error' });
         }
     }
 
@@ -42,20 +42,18 @@ class UserController {
         const { name, password } = req.body;
 
         if (!name || !password) {
-            res.status(400).json({ error: 'Name and password are required' });
+            return res.status(400).json({ error: 'Name and password are required' });
         }
 
         try {
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const user = await this.loginUseCase.execute(name, hashedPassword);
+            const user = await this.loginUseCase.execute(name, password);
             if (!user) {
-                res.status(401).json({ error: 'Invalid name or password' });
+                return res.status(401).json({ error: 'Invalid name or password' });
             }
-            res.json(user);
+            return res.json(user);
         } catch (err) {
             console.error(err);
-            res.status(500).json({ error: 'Internal server error' });          
+            return res.status(500).json({ error: 'Internal server error' });          
         }
     }
 }

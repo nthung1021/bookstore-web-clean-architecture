@@ -9,9 +9,8 @@ const db_dialect = process.env.DB_TYPE;
 
 const sequelize = new Sequelize(db_name, db_user, db_pass, {
     host: db_host,
-    dialect: db_dialect,
     port: db_port,
-    logging: false,
+    dialect: db_dialect,
 });
 
 module.exports = sequelize;
