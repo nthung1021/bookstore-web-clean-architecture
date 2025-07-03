@@ -19,6 +19,9 @@ class CartController {
             return res.status(200).json({ message: 'Product added to cart successfully', data: result });
         } catch (err) {
             console.error(err);
+            if (err.message.includes('out of stock') || err.message.includes('Insufficient stock')) {
+                return res.status(400).json({ error: err.message });
+            }
             return res.status(500).json({ error: 'Cannot add this product to cart - Internal server error'});
         }
     }

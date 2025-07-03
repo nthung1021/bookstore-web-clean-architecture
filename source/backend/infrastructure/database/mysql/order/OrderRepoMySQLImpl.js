@@ -24,7 +24,7 @@ class OrderRepoMySQLImpl extends OrderRepository {
             const product = await ProductModelMySQL.findByPk(item.product_id);
             if (!product) {
                 throw new Error(`Product with ID ${item.product_id} not found`);
-            }
+            }         
 
             const orderProduct = new OrderProduct({
                 order_id: orderRecord.id,
@@ -36,6 +36,10 @@ class OrderRepoMySQLImpl extends OrderRepository {
             if (!orderProductRecord) {
                 throw new Error('Failed to create order product');
             }
+
+            product.stock -= item.quantity;
+
+            await product.save();
 
             totalAmount += orderProduct.total_price;
         }
@@ -59,6 +63,10 @@ class OrderRepoMySQLImpl extends OrderRepository {
             throw new Error('Product not found');
         }
 
+        if (product.stock < quantity) {
+            throw new Error(`Insufficient stock for product ${product.name} - requested ${quantity}, available ${product.stock}`);
+        }
+
         const order = new Order({ 
             user_id: userId, 
             total_cost: product.price * quantity 
@@ -79,13 +87,17 @@ class OrderRepoMySQLImpl extends OrderRepository {
             throw new Error('Failed to create order product');
         }
 
+        product.stock -= quantity;
+
+        await product.save();
+
         return new Order(orderRecord.dataValues);
     }
 
     async getOrder(userId) {
         const orders = await OrderModelMySQL.findAll({ where: { user_id: userId } });
         if (orders.length === 0) {
-            throw new Error(`No orders found for this user id ${userId}`);
+            return [];
         }
 
         const orderDetails = [];

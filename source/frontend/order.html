@@ -56,7 +56,16 @@
             body: JSON.stringify({ userId })
         });
         const orders = await res.json();
-        console.log(orders);
+
+        if (orders.error) {
+            alert(orders.error);
+            return;
+        }
+
+        if (!orders.data || orders.data.length === 0) {
+            document.getElementById('orders').innerHTML = '<p class="text-xl text-center font-bold m-1">No past orders.</p>';
+            return;
+        }
 
         const html = orders.data.map(order => `
             <div class="mb-6 border-b pb-4">

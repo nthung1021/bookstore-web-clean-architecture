@@ -137,6 +137,7 @@
         const data = await res.json();
         if (res.ok) {
             alert("Order placed successfully!");
+            location.reload();
         } else {
             alert(data.error || "Failed to order.");
         }

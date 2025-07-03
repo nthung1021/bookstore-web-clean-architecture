@@ -65,7 +65,7 @@ async function seedProducts() {
                     id: 8,
                     name: "The Internet Galaxy",
                     price: 32.00,
-                    stock: 70,
+                    stock: 0,
                     description: "A socio-economic and cultural analysis of the Internet’s emergence, exploring how it has reshaped society and global communication.",
                     image: "https://upload.wikimedia.org/wikipedia/en/6/65/The_Internet_Galaxy.jpg"
                 }

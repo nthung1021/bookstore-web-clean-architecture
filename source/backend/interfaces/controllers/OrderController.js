@@ -37,6 +37,9 @@ class OrderController {
             return res.status(200).json({ message: 'Order placed successfully from product', data: result });
         } catch (err) {
             console.error(err);
+            if (err.message.includes('out of stock') || err.message.includes('Insufficient stock')) {
+                return res.status(400).json({ error: err.message });
+            }
             return res.status(500).json({ error: 'Cannot place order from this product - Internal server error'});
         }
     }
@@ -49,14 +52,13 @@ class OrderController {
             }
 
             const order = await this.getOrderUseCase.execute(userId);
-            console.log(order);
-            if (!order) {
-                return res.status(404).json({ error: 'No order found for this user' });
+            if (!order || order.length === 0) {
+                return res.status(404).json({ message: 'No order found for this user' });
             }
 
             return res.status(200).json({ message: 'Order retrieved successfully', data: order });
         } catch (err) {
-            console.error(err);
+            console.error(err); 
             return res.status(500).json({ error: 'Cannot get list of orders - Internal server error'});
         }
     }
