@@ -16,7 +16,27 @@ function createUserRepository(dbType) {
     }
 }
 
+function createCartRepository(dbType) {
+    switch (dbType) {
+        case 'mysql':
+            return new (require('../database/mysql/cart/CartRepoMySQLImpl'))();
+        default:
+            throw new Error(`Unsupported DB type: ${dbType}`);
+    }
+}
+
+function createOrderRepository(dbType) {
+    switch (dbType) {
+        case 'mysql':
+            return new (require('../database/mysql/order/OrderRepoMySQLImpl'))();
+        default:
+            throw new Error(`Unsupported DB type: ${dbType}`);
+    }
+}
+
 module.exports = {
     createProductRepository,
-    createUserRepository
+    createUserRepository,
+    createCartRepository,
+    createOrderRepository
 };

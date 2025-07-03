@@ -99,14 +99,5 @@
             alert(data.error || "Registration failed. Please try again.");
         }
     });
-
-    document.getElementById("accountButton").addEventListener("click", () => {
-        const userId = localStorage.getItem("userId");
-        if (userId) {
-        window.location.href = "/user";
-        } else {
-        window.location.href = "/login";
-        }
-    });
 </script>
 

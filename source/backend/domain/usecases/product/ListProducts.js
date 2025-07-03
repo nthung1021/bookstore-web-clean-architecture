@@ -4,7 +4,7 @@ class ListProducts {
     }
 
     async execute() {
-        return await this.productRepository.getAllProducts();
+        return this.productRepository.getAllProducts();
     }
 }
 module.exports = ListProducts;

@@ -84,17 +84,61 @@
                 <p class="text-black text-lg">Stock: ${Number(product.stock)}</p>
                 <p class="text-green-700 font-bold text-md">$${Number(product.price)}</p>
                 <button 
-                    onclick="orderNow('${product.id}', ${product.price})"
+                    onclick="orderNow(${product.id})"
                     class="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-500">Order
                 </button>
                 <button 
-                    onclick="addToCart('${product.id}')"
+                    onclick="addToCart(${product.id})"
                     class="mt-2 bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400">Add to Cart
                 </button>
             </div>
         `).join('');
         } catch (err) {
             console.error('Failed to load products:', err);
+        }
+    }
+
+    async function addToCart(productId) {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            alert("Please login to add items to cart.");
+            window.location.href = '/login';
+            return;
+        }
+
+        const res = await fetch(`${window.env.API_URL}/api/cart/add`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, productId })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+            alert("Added to cart!");
+        } else {
+            alert(data.error || "Failed to add to cart.");
+        }
+    }
+
+    async function orderNow(productId) {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+            alert("Please login to order.");
+            window.location.href = '/login';
+            return;
+        }
+
+        const res = await fetch(`${window.env.API_URL}/api/order/from-product`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId, productId, quantity: 1 })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+            alert("Order placed successfully!");
+        } else {
+            alert(data.error || "Failed to order.");
         }
     }
 
