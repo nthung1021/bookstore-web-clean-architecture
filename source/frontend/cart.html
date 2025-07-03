@@ -69,7 +69,10 @@
         const html = items.data.map(item => `
             <div class="flex justify-between border-b py-2">
             <span>${item.name}</span>
-            <span>$${Number(item.price)}</span>
+            <span>$${Number(item.price)} 
+                x ${Number(item.quantity)} 
+                = $${(Number(item.price) * Number(item.quantity)).toFixed(2)}
+            </span>
             </div>
         `).join("");
 
