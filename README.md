@@ -97,7 +97,7 @@ npm start
 
 **Frontend**
 
-- Open another CMD window and run these command to start the frontend locally:
+- Open another CMD window and run these commands to start the frontend locally:
 
 ```
 # Change the current directory to the frontend folder
