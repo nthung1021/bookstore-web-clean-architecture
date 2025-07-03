@@ -66,7 +66,7 @@ To run this website locally you have to follow these steps here:
 
 **Backend**
 
-- Download and install MySQL Workbench (Community Edition) for hosting database locally, link download (choose the file `mysql-installer-community-<version>.msi`): https://dev.mysql.com/downloads/installer/
+- Download and install MySQL Workbench (Community Edition) for hosting database locally by [clicking on link here](https://dev.mysql.com/downloads/installer/) (donwload the file `mysql-installer-community-<version>.msi`)
 
 - Create environment file (.env) inside source/backend folder, which will look like this:
 
@@ -79,6 +79,8 @@ DB_USER=root            # Name of the user managing the database, default is roo
 DB_PASS=<user-password> # Password of the user, can be the root user
 DB_NAME=bookstore-ca    # Name of the database, can be any name, default is bookstore-ca
 ```
+
+- In MySQL Workbench, after creating the connection, make sure to create database (schema) with the name is the one included in .env file (`DB_NAME`)
 
 - Open CMD and run the following commands to run the backend
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const { createProductRepository } = require('../../infrastructure/factory/repositoryFactory');
-const ListProducts = require('../../domain/usecases/product/ListProducts');
-const GetProductDetail = require('../../domain/usecases/product/GetProductDetail');
+const ListProducts = require('../../usecases/product/ListProducts');
+const GetProductDetail = require('../../usecases/product/GetProductDetail');
 const ProductController = require('../controllers/ProductController');
 
 const dbType = process.env.DB_TYPE;

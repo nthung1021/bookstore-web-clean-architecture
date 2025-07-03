@@ -1,8 +1,8 @@
 const express = require('express');
 const { createOrderRepository } = require('../../infrastructure/factory/repositoryFactory');
-const PlaceOrderFromCart = require('../../domain/usecases/order/PlaceOrderFromCart');
-const PlaceOrderFromProduct = require('../../domain/usecases/order/PlaceOrderFromProduct');
-const GetOrder = require('../../domain/usecases/order/GetOrder');
+const PlaceOrderFromCart = require('../../usecases/order/PlaceOrderFromCart');
+const PlaceOrderFromProduct = require('../../usecases/order/PlaceOrderFromProduct');
+const GetOrder = require('../../usecases/order/GetOrder');
 const OrderController = require('../controllers/OrderController');
 
 const dbType = process.env.DB_TYPE;

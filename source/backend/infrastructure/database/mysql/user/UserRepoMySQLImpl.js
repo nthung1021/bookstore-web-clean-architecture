@@ -1,5 +1,5 @@
-const UserRepository = require('../../../../domain/repositories/UserRepository');
-const User = require('../../../../domain/entities/User');
+const UserRepository = require('../../../../usecases/repositories/UserRepository');
+const User = require('../../../../domain/User');
 const UserModelMySQL = require('./UserModelMySQL');
 
 class UserRepoMySQLImpl extends UserRepository {

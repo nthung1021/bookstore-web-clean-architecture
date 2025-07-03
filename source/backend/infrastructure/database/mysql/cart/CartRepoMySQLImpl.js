@@ -1,5 +1,5 @@
-const CartRepository = require('../../../../domain/repositories/CartRepository');
-const Cart = require('../../../../domain/entities/Cart');
+const CartRepository = require('../../../../usecases/repositories/CartRepository');
+const Cart = require('../../../../domain/Cart');
 const CartModelMySQL = require('./CartModelMySQL'); 
 const ProductModelMySQL = require('../product/ProductModelMySQL');
 

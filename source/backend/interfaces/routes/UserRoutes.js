@@ -1,8 +1,8 @@
 const express = require('express');
 const { createUserRepository } = require('../../infrastructure/factory/repositoryFactory');
-const Register = require('../../domain/usecases/user/Register');
-const Login = require('../../domain/usecases/user/Login');
-const GetUser = require('../../domain/usecases/user/GetUser');
+const Register = require('../../usecases/user/Register');
+const Login = require('../../usecases/user/Login');
+const GetUser = require('../../usecases/user/GetUser');
 const UserController = require('../controllers/UserController');
 
 const dbType = process.env.DB_TYPE;

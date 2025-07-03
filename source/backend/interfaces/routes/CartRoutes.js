@@ -1,7 +1,7 @@
 const express = require('express');
 const { createCartRepository } = require('../../infrastructure/factory/repositoryFactory');
-const AddToCart = require('../../domain/usecases/cart/AddToCart');
-const GetCartsItems = require('../../domain/usecases/cart/GetCartItems');
+const AddToCart = require('../../usecases/cart/AddToCart');
+const GetCartsItems = require('../../usecases/cart/GetCartItems');
 const CartController = require('../controllers/CartController');
 
 const dbType = process.env.DB_TYPE;
